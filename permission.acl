@@ -19,16 +19,16 @@ rule Issuer {
     description: "Allow full access to the issuer of a bond"
     participant(i): "org.fordham.education.transcript_issuer"
     operation: ALL
-    resource(a): "org.fordham.education.Transcript"
-    condition: (a.bond.issuer.memberId === i.memberId)
+    resource(a): "org.fordham.education.transcript"
+    condition: (a.record.transcript_issuer.employeeid === i.employeeid)
     action: ALLOW
 }
 
 rule Default {
     description: "Allow read access"
-    participant: "org.fordham.education.record.*"
+    participant: "org.fordham.education.*"
     operation: ALL
-    resource: "org.fordham.education.record.*"
+    resource: "org.fordham.education.*"
     action: ALLOW
 }
 
