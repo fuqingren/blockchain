@@ -15,19 +15,42 @@
 /* global getAssetRegistry getFactory */
 
 /**
- * Publish a new transcript
- * @param {org.fordham.education.PublishTranscript} publishTranscript - the publishTranscript transaction
- * @transaction
- */
-async function publish(publishTranscript) {  // eslint-disable-line no-unused-vars
 
-    const registry = await getAssetRegistry('org.fordham.education.transcript');
-    const factory = getFactory();
+* Issue a new transcript
+@param {org.fordham.education.PublishTranscript} publish transcript
+* @transaction
+*/
 
-    // Create the bond asset.
-    const transcript = factory.newResource('org.fordham.education', 'transcript', PublishTranscript.transcriptId);
-    transcript.record = PublishTranscript.record;
+async function publish(publishTranscript) {// eslint-disable-line no-unused-vars
+  const registry =await getAssetRegistry('org.fordham.education.Transcript');
+  const factory = getFactory();
 
-    // Add the bond asset to the registry.
-    await registry.add(transcript);
+  //create tbe transcript asset.
+  const Transcript=factory.newResource('org.fordham.education', 'Transcript', publishTranscript.TId);
+  Transcript.issueDate=publishTranscript.issueDate;
+  Transcript.gpa=publishTranscript.gpa;
+  Transcript.classOfYear=publishTranscript.classOfYear;
+  Transcript.studentName=publishTranscript.studentName;
+  Transcript.TId=publishTranscript.TId;
+  Transcript.description=publishTranscript.description;
+  Transcript.issuer=publishTranscript.issuer;
+   // Add the bond asset to the registry.
+  await registry.add(Transcript);
 }
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
