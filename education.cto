@@ -14,32 +14,37 @@
 
 namespace org.fordham.education
 
-
-participant school_employee identified by employeeid {
-  o String employeeid
+participant Fordham_emp identified by empId{
+  o String empId
   o String name
 }
 
-participant transcript_issuer extends school_employee {
+participant Issuer extends Fordham_emp{
 }
 
-
-concept Record {
-  o String description optional
-  o DateTime issueDate
-  o String name
-  o String gpa
-  o String major
-  o String graduate_year
-  --> transcript_issuer issuer
-}
-
-asset transcript identified by transcriptId{
-  o String transcriptId
-  o Record record
+asset Transcript identified by TId{
+ o String TId
+ o String studentName
+ o String classOfYear
+ o String gpa
+ o DateTime issueDate
+ o String description optional
+ --> Issuer issuer
 }
 
 transaction PublishTranscript{
-  o String transcriptId
-  o Record record
+ o String TId
+ o String studentName
+ o String classOfYear
+ o String gpa
+ o DateTime issueDate
+ o String description optional
+ --> Issuer issuer
 }
+
+
+
+
+
+
+
