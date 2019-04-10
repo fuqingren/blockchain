@@ -12,39 +12,68 @@
  * limitations under the License.
  */
 
+/**
+ * Definition of a Bond, based on the FpML schema:
+ * http://www.fpml.org/spec/fpml-5-3-2-wd-2/html/reporting/schemaDocumentation/schemas/fpml-asset-5-3_xsd/elements/bond.html
+ *
+ */
 namespace org.fordham.education
 
-participant Fordham_emp identified by empId{
-  o String empId
+participant School identified by Schoolid {
+  o String Schoolid
   o String name
+  o String level //undergraduate or graduate or college 
 }
 
-participant Issuer extends Fordham_emp{
+participant Company identified by Companytid {
+  o String Companytid
+  o String name
+  o String identity //company type finance/consultant/tech can use enum
 }
 
-asset Transcript identified by TId{
- o String TId
- o String studentName
- o String classOfYear
- o String gpa
- o DateTime issueDate
- o String description optional
- --> Issuer issuer
-}
-
-transaction PublishTranscript{
- o String TId
- o String studentName
- o String classOfYear
- o String gpa
- o DateTime issueDate
- o String description optional
- --> Issuer issuer
+asset Transcript identified by tId{
+  o String tId
+  o String ClassofYear
+  o String gpa
+  o String major
+  o String jobexp optional
+  o String nationality
+  --> School createdBy
+  --> Student student
 }
 
 
 
+asset TranscriptViewBy identified by tVid{
+  o String tVid
+  o String status //interview required or accepted by
+  o String ReviewedCompany
+  --> Company viewedBy [] optional
+  --> Student student
+} 
+
+transaction ViewTranscript{
+  o String tVid
+  o String status //interview required or accepted by
+  o String ReviewedCompany
+  --> Company company
+}
+
+transaction ModifyByStudent{
+  //student add the company to the array
+  o String addCompany
+  o String removeCompany
+  --> Student Student
+  --> Company newViewBy [] optional
+}
 
 
-
-
+//logic file todo list
+// get assetRegistry
+//getFactory
+//newResource(namespace org.fordham.education,TranscriptViewBy,tVid)
+//
+//.status=.status
+//.ReviewedCompany=.ReviewedCompany
+//.add(TranscriptViewBy)  add asset
+//
