@@ -25,38 +25,44 @@ participant School identified by Schoolid {
   o String level //undergraduate or graduate or college 
 }
 
-participant Company identified by Companytid {
-  o String Companytid
+participant Company identified by Companyid {
+  o String Companyid
   o String name
   o String identity //company type finance/consultant/tech can use enum
 }
 
-asset Transcript identified by tId{
-  o String tId
-  o String ClassofYear
-  o String gpa
+participant Student identified by sId{
+  o String sId
+  o String studentName
   o String major
-  o String jobexp optional
   o String nationality
-  --> School createdBy
-  --> Student student
+  o String gender
+  o String classOfYear
 }
 
 
-
-asset TranscriptViewBy identified by tVid{
-  o String tVid
-  o String status //interview required or accepted by
-  o String ReviewedCompany
-  --> Company viewedBy [] optional
+asset Transcript identified by tId{
+  o String tId
+  o Double gpa default =0.0
+  o String remarks 
+  o String studentName
+  o String studentId
+  o DateTime GraduationDate
+  o DateTime issueDate
+  --> School school
   --> Student student
-} 
-
-transaction ViewTranscript{
-  o String tVid
-  o String status //interview required or accepted by
-  o String ReviewedCompany
-  --> Company company
+  --> Company viewedBy optional
+}
+  
+transaction ModifyTranscript{
+  --> School school 
+  o String mId //tid is the identifier in the asset, we need to in clude this in the transaction 
+  o Double gpa default =0.0
+  o String remarks 
+  o String studentName
+  o String studentId
+  o DateTime GraduationDate
+  o DateTime issueDate
 }
 
 transaction ModifyByStudent{
@@ -64,8 +70,10 @@ transaction ModifyByStudent{
   o String addCompany
   o String removeCompany
   --> Student Student
-  --> Company newViewBy [] optional
+  --> Company newViewBy optional
 }
+
+
 
 
 //logic file todo list
