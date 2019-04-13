@@ -38,6 +38,7 @@ participant Student identified by sId{
   o String nationality
   o String gender
   o String classOfYear
+  o String  []company
 }
 
 
@@ -49,6 +50,7 @@ asset Transcript identified by tId{
   o String studentId
   o DateTime GraduationDate
   o DateTime issueDate
+  o String createdSchool default='Fordham University'
   --> School school
   --> Student student
   --> Company viewedBy optional
@@ -69,8 +71,8 @@ transaction ModifyByStudent{
   //student add the company to the array
   o String addCompany
   o String removeCompany
-  --> Student Student
-  --> Company newViewBy optional
+  --> Student student
+  --> Company[] newViewBy optional
 }
 
 
