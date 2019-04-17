@@ -19,8 +19,8 @@ async function modifyTranscript(modify){
     newasset.issueDate=modify.issueDate;
   	newasset.createdSchool="Fordham University"
     //participants
-    const SchoolRef=factory.newRelationship('org.fordham.education','School',getCurrentParticipant().getIdentifier());//add school
-    newasset.school=SchoolRef; 
+    //const SchoolRef=factory.newRelationship('org.fordham.education','School',getCurrentParticipant().getIdentifier());//add school
+    newasset.school=modify.school; 
   	//const participantRegistryS = await getParticipantRegistry('org.fordham.education.Student');//get student participant
     //const toStudent = await participantRegistryS.get(modify.Student);
     newasset.student=factory.newRelationship('org.fordham.education','Student', getCurrentParticipant().getIdentifier());
@@ -34,7 +34,7 @@ async function modifyTranscript(modify){
 
 /**
  * Track the trade of a commodity from one trader to another
- * @param {org.fordham.education.ModifyByStudent} change - the trade to be processed
+ * @param {org.fordham.education.Add_Remove_Company} change - the trade to be processed
  * @transaction
  */
 
@@ -61,17 +61,6 @@ async function modifyBy(change){
   
   const participantRegistry=await getParticipantRegistry('org.fordham.education.Student');
   await participantRegistry.update(change.student);
-  
-  
-  
-  
-
-
-  
-  
-  
-  
-
 
 }
 
