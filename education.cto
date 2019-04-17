@@ -38,7 +38,7 @@ participant Student identified by sId{
   o String nationality
   o String gender
   o String classOfYear
-  o String  []company
+  o String  []company 
 }
 
 
@@ -67,7 +67,7 @@ transaction ModifyTranscript{
   o DateTime issueDate
 }
 
-transaction ModifyByStudent{
+transaction Add_Remove_Company{
   //student add the company to the array
   o String addCompany
   o String removeCompany
