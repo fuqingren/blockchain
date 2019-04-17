@@ -72,7 +72,6 @@ transaction Add_Remove_Company{
   o String addCompany
   o String removeCompany
   --> Student student
-  --> Company[] newViewBy optional
 }
 
 
