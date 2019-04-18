@@ -5,11 +5,9 @@
  */
 
 async function modifyTranscript(modify){
-    const Assetregistry=await getAssetRegistry('org.fordham.education.Transcript');
-    // const participantRegistryC = await getParticipantRegistry('org.fordham.education.Company');
-    //const participantRegistryS = await getParticipantRegistry('org.fordham.education.Student'); // eslint-disable-line no-undef
+    const Assetregistry=await getAssetRegistry('org.fordham.Transcript');
     const factory=getFactory();
-    const newasset=factory.newResource('org.fordham.education','Transcript',modify.mId);
+    const newasset=factory.newResource('org.fordham','Transcript',modify.mId);
     //modify aspects
     newasset.gpa=modify.gpa;
     newasset.remarks=modify.remarks;
@@ -18,14 +16,11 @@ async function modifyTranscript(modify){
     newasset.GraduationDate=modify.GraduationDate;
     newasset.issueDate=modify.issueDate;
   	newasset.createdSchool="Fordham University"
-    //participants
-    //const SchoolRef=factory.newRelationship('org.fordham.education','School',getCurrentParticipant().getIdentifier());//add school
+  
     newasset.school=modify.school; 
-  	//const participantRegistryS = await getParticipantRegistry('org.fordham.education.Student');//get student participant
-    //const toStudent = await participantRegistryS.get(modify.Student);
-    newasset.student=factory.newRelationship('org.fordham.education','Student', getCurrentParticipant().getIdentifier());
+    newasset.student=factory.newRelationship('org.fordham','Student', getCurrentParticipant().getIdentifier());
     //newasset.student=StudentRef; 
-  	const CompanyRef=factory.newRelationship('org.fordham.education','Company',getCurrentParticipant().getIdentifier());
+  	const CompanyRef=factory.newRelationship('org.fordham','Company',getCurrentParticipant().getIdentifier());
     newasset.viewedBy=CompanyRef; 
 
   await Assetregistry.add(newasset);
@@ -59,10 +54,10 @@ async function modifyBy(change){
   
   
   
-  const participantRegistry=await getParticipantRegistry('org.fordham.education.Student');
+  const participantRegistry=await getParticipantRegistry('org.fordham.Student');
   await participantRegistry.update(change.student);
   
-  const addEvent = factory.newEvent('org.fordham.education', 'Event_Add_Remove_Company');
+  const addEvent = factory.newEvent('org.fordham', 'Event_Add_Remove_Company');
   addEvent.xId = change.xId;
   addEvent.addCompany = change.addCompany;
   addEvent.removeCompany=change.removeCompany;
