@@ -17,25 +17,25 @@
  */
 rule EverybodyCanReadEverything {
     description: "Allow all participants read access to all resources"
-    participant: "org.fordham.education.School"
+    participant: "org.fordham.School"
     operation: READ
-    resource: "org.fordham.education.*"
+    resource: "org.fordham.*"
     action: ALLOW
 }
 
 rule EverybodyCanSubmitTransactions {
     description: "Allow all participants to submit transactions"
-    participant: "org.fordham.education.School"
+    participant: "org.fordham.School"
     operation: CREATE
-    resource: "org.fordham.education.ModifyTranscript"
+    resource: "org.fordham.ModifyTranscript"
     action: ALLOW
 }
 
 rule OwnerHasFullAccessToTheirAssets {
     description: "Allow all participants full access to their assets"
-    participant(p): "org.fordham.education.School"
+    participant(p): "org.fordham.School"
     operation: ALL
-    resource(r): "org.fordham.education.Transcript"
+    resource(r): "org.fordham.Transcript"
     condition: (r.owner.getIdentifier() === p.getIdentifier())
     action: ALLOW
 }
