@@ -1,6 +1,6 @@
 /**
  * Track the trade of a commodity from one trader to another
- * @param {org.fordham.education.ModifyTranscript} modify - the trade to be processed
+ * @param {org.fordham.ModifyTranscript} modify - the trade to be processed
  * @transaction
  */
 
@@ -34,7 +34,7 @@ async function modifyTranscript(modify){
 
 /**
  * Track the trade of a commodity from one trader to another
- * @param {org.fordham.education.Add_Remove_Company} change - the trade to be processed
+ * @param {org.fordham.Add_Remove_Company} change - the trade to be processed
  * @transaction
  */
 
@@ -44,10 +44,10 @@ async function modifyBy(change){
   
   console.log('student changing company');
   const factory = getFactory();
+  const add=change.student.company;
   
-  change.student.company.push(change.addCompany);
+  await add.push(change.addCompany);
   
-
   
   const index=change.student.company.indexOf(change.removeCompany);
   if (index>-1){
@@ -55,12 +55,20 @@ async function modifyBy(change){
    }else  if (change.student.company !== change.newViewBy){
     throw new Error('Please delete the companies that are on the list')
   }
-  	
+  
   
   
   
   const participantRegistry=await getParticipantRegistry('org.fordham.education.Student');
   await participantRegistry.update(change.student);
+  
+  const addEvent = factory.newEvent('org.fordham.education', 'Event_Add_Remove_Company');
+  addEvent.xId = change.xId;
+  addEvent.addCompany = change.addCompany;
+  addEvent.removeCompany=change.removeCompany;
+  addEvent.student=change.student;
+  
+  emit(addEvent);
 
 }
 
