@@ -17,7 +17,7 @@
  * http://www.fpml.org/spec/fpml-5-3-2-wd-2/html/reporting/schemaDocumentation/schemas/fpml-asset-5-3_xsd/elements/bond.html
  *
  */
-namespace org.fordham.education
+namespace org.fordham
 
 participant School identified by Schoolid {
   o String Schoolid
@@ -69,20 +69,20 @@ transaction ModifyTranscript{
 
 transaction Add_Remove_Company{
   //student add the company to the array
+  o String xId
+  o String addCompany
+  o String removeCompany
+  --> Student student
+}
+  
+
+
+event Event_Add_Remove_Company{
+  //student add the company to the array
+  o String xId
   o String addCompany
   o String removeCompany
   --> Student student
 }
 
 
-
-
-//logic file todo list
-// get assetRegistry
-//getFactory
-//newResource(namespace org.fordham.education,TranscriptViewBy,tVid)
-//
-//.status=.status
-//.ReviewedCompany=.ReviewedCompany
-//.add(TranscriptViewBy)  add asset
-//
