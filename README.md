@@ -15,7 +15,7 @@ The Business network flow is the following:
 
 # Participant
 Student
-School    
+School
 Company
 
 # Asset
