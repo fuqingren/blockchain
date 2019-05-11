@@ -29,3 +29,6 @@ ModifyTranscript
 
 
 This is the link for angular development that shows the solution for non-response to invoke transaction. https://medium.com/coinmonks/fixing-transaction-issue-in-angular-for-hyperledger-fabric-blockchain-application-fe7e28a7bb6e
+
+Git if Horea
+https://github.com/horeaporutiu
