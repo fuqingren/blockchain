@@ -32,3 +32,5 @@ This is the link for angular development that shows the solution for non-respons
 
 Git if Horea
 https://github.com/horeaporutiu
+
+https://medium.com/coinmonks/hyperledger-composer-on-aws-6753e5e40bb7
