@@ -1,0 +1,148 @@
+
+namespace org.health
+
+enum Status{
+  o PENDING
+  o FINISHED
+  
+}
+
+enum Test {
+  o bloodTest
+  o xRay
+  o NMRI
+  o HPV
+}
+
+
+participant Doctor identified by doctorId {
+  o String doctorId
+  o String doctorName
+  o String department
+  o String contact
+}
+
+
+participant Patient identified by patientId {
+  o String patientId
+  o String patientName
+  o String address
+  o String contact
+}
+
+participant Pharmacy identified by phId{
+    o String phId
+    o String pharmContact
+    o String pharmAddress
+}
+
+
+participant InsuranceCompany identified by insuranceId{
+  o String insuranceId
+  o String name
+  
+}
+
+participant Lab identified by labId{
+  o String labId
+  o String labName
+}
+
+asset labRecord identified by LabId{
+  o String LabId
+  o Test test
+  o Status status
+  --> Patient patient
+  --> Doctor doctor
+  --> Lab lab
+}
+
+asset EHR identified by eId{
+  o String eId
+  o String patientName
+  o String bloodType
+  o Double weight
+  o Double height
+  o String history
+  --> Patient patient
+  --> Doctor doctor
+  --> Prescription prescription
+  --> InsuranceCompany company
+}
+
+
+
+
+asset Prescription identified by presId {
+  o String presId
+  o String medicine
+  o String doctorName
+  o String patientName
+  o String pickedupLoc
+  --> Doctor doctor
+  --> Pharmacy pharm
+  --> Patient patient
+}
+
+
+
+transaction PlacePrescription{
+  --> Doctor doctor
+  o String placeId 
+  o String medicine
+  o String docterName
+  o String patientName
+}
+
+transaction pickupConfirm{
+  o String pickId
+  o String patientName
+  o String presId
+  --> Prescription prescription
+  --> Patient patient
+  --> Pharmacy pharmacy
+}
+
+
+
+transaction issueTest{  // create new asset labrecord
+  o String LabId
+  o Test test
+  o Status status
+  --> Patient patient
+  --> Doctor doctor
+  --> Lab lab
+}
+
+event issueTestEvent {
+  -->labRecord labrecord
+}
+
+
+
+transaction createEHR{
+  o String eId
+  o String patientName
+  o String bloodType
+  o Double weight
+  o Double height
+  o String history
+  --> Patient patient
+  --> Doctor doctor
+  --> Prescription prescription
+  --> InsuranceCompany company
+}
+
+event createEHRevent{
+ --> EHR ehr
+}
+
+transaction updateRecord{ //update lab record
+  --> labRecord labrecord
+  o Status status
+}
+
+
+
+
+  
